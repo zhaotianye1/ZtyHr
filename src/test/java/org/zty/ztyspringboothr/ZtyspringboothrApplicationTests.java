@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package org.zty.ztyspringboothr;
 
 import org.junit.jupiter.api.Test;
@@ -35,3 +36,21 @@ class ZtyspringboothrApplicationTests {
 
 
 }
+=======
+package org.zty.ztyspringboothr;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+@SpringBootTest
+class ZtyspringboothrApplicationTests {
+
+    @Test
+    void contextLoads() {
+        BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+        System.out.println(bCryptPasswordEncoder.encode("123"));
+    }
+
+}
+>>>>>>> d183975e40851db894f2de6f5eb0421bd29ad4e4
