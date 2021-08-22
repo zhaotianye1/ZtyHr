@@ -5,19 +5,22 @@
     <div class="title">
       天哥人事管理系统
     </div>
-    <el-dropdown class="userInfo" @command="commandHandler">
-  <span class="el-dropdown-link">
-    <div class="uname">
-    {{user.name}}
-    </div>
-    <i><img :src="user.userface" :alt="user.name"></i>
-  </span>
-  <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item command="userInfo">个人中心</el-dropdown-item>
-    <el-dropdown-item command="setting">设置</el-dropdown-item>
-    <el-dropdown-item command="logout" divided>注销登录</el-dropdown-item>
-  </el-dropdown-menu>
-</el-dropdown>
+      <div>
+        <el-button icon="el-icon-bell" type="text" style="margin-right:10px" @click="goChat"></el-button>
+        <el-dropdown class="userInfo" @command="commandHandler">
+          <span class="el-dropdown-link">
+            <div class="uname">
+            {{user.name}}
+            </div>
+            <i><img :src="user.userface" :alt="user.name"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command="userInfo">个人中心</el-dropdown-item>
+            <el-dropdown-item command="setting">设置</el-dropdown-item>
+            <el-dropdown-item command="logout" divided>注销登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
   </el-header>
   <el-container>
     <el-aside width="200px">
@@ -63,6 +66,9 @@ export default {
       }
     },
     methods:{
+      goChat(){
+        this.$router.push("/chat")
+      },
       menuClick(index,indexPath){
          this.$router.push(index);
       },

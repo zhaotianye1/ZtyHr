@@ -7,9 +7,8 @@
                 <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="请输入用户名"></el-input>
             </el-form-item>
             <el-form-item prop="password">
-                <el-input type="text" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码" @keydown.enter.native="Submit"></el-input>
+                <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="请输入密码" @keydown.enter.native="Submit"></el-input>
             </el-form-item>
-            <el-checkbox v-model="checked" class="LoginRemember"></el-checkbox>
             <el-button type="primary" style="width:100%" @click="Submit">登录</el-button>
         </el-form>
     </div>
@@ -22,16 +21,21 @@ export default {
         return{
             loading:false,
             loginForm:{
-                username:'admin',
-                password:'123'
+                username:'zhaotianye',
+                password:'123',
+                captcha_key: '',
+                captcha_code: ''
             },
-            checked:true,
+            // checked:true,
             rules:{
                 username:[{required: true,message:'请输入用户名',trigger:'blur'}],
                 password:[{required: true,message:'请输入密码',trigger:'blur'}]
                 
             }
         }
+    },
+    mounted(){
+        // this.changeCode(); 
     },
     methods:{
         Submit() {
@@ -41,6 +45,7 @@ export default {
               this.postKeyValueRequest('/doLogin',this.loginForm).then(resp=>{
                   this.loading=false;
                   if(resp){
+                      this.$store.commit('INIT_CURRENTHR',resp.obj);
                       window.sessionStorage.setItem("user",JSON.stringify(resp.obj));
                       let path=this.$route.query.redirect;
                       this.$router.replace((path=='/' || path== undefined) ? '/home' : path);
@@ -49,6 +54,7 @@ export default {
             // alert('成功！');
           } else {
             this.$message.error('请补全所有字段');
+            this.loading=false;
             return false;
           }
         });
